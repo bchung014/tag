@@ -1,7 +1,7 @@
 {
-  "name": "js_project_skeleton",
+  "name": "tag",
   "version": "1.0.0",
-  "description": "skeleton for new JS project",
+  "description": "A good ole game of tag",
   "main": "index.js",
   "browserslist": [
     "last 1 version",
@@ -14,7 +14,7 @@
     "webpack:watch": "webpack --watch --config webpack.dev.js",
     "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize"
   },
-  "author": "mrcjbradley",
+  "author": "bchung014",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.6.4",
