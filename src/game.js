@@ -7,13 +7,18 @@ export default class Game {
   }
   
   initialize() {
-    var circle = new createjs.Shape();
-    circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50);
-    circle.x = 100;
-    circle.y = 100;
-    this.stage.addChild(circle);
+    // const circle = new createjs.Shape();
+    // circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50);
+    // circle.x = 100;
+    // circle.y = 100;
+    const p1 = new Player();
+    this.stage.addChild(p1.model);
+    
+    // this.controller = new Controller();
+    const controller = new Controller(p1);
 
-    // window.addEventListener("keydown", keyPressed);
+    window.addEventListener("keydown", controller.keyPressed);
+    
     this.play();
   }
 
