@@ -13,26 +13,8 @@ $background-color: lighten($main-color, 40%);
 body {
   background-color: $background-color;
   color: $main-color;
-  height: 97vh;
-  width: 100vw;
 }
 
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-// COMPONENTS
-.card {
-  background: white;
-  height: 50vh;
-  width: 50vw;
-  border-radius: 15px;
-  @include basic-box-shadow($accent-color);
-}
-
-// TYPOGRAPHY
-h2 {
-  font-size: 3rem;
+canvas {
+  border: 1px solid black;
 }
