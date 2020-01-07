@@ -10,7 +10,7 @@ export default class Game {
     this.controller = new Controller();
 
     // Player one
-    this.playerOne = new Player(this.controller);
+    this.playerOne = new Player(this.ctx, this.controller);
 
     // Renders components
     this.render = this.render.bind(this);
@@ -28,10 +28,10 @@ export default class Game {
   render() {
     // Drawing canvas BG, move this eventually
     this.ctx.fillStyle = "white";
-    this.ctx.fillRect(0, 0, 320, 180);// x, y, width, height
+    this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);// x, y, width, height
 
     // Draws player one
-    this.playerOne.draw(this.ctx);
+    this.playerOne.draw();
 
     // Recursively re-render
     window.requestAnimationFrame(this.render);

@@ -3,6 +3,8 @@ export default class Controller {
     this.left = false;
     this.right = false;
     this.up = false;
+    this.down = false;
+    this.dash = false;
 
     this.keyPressed = this.keyPressed.bind(this);
   }
@@ -10,8 +12,6 @@ export default class Controller {
   keyPressed(event) {
     var key_state = (event.type == "keydown") ? true : false;
 
-
-    
     switch (event.keyCode) {
       case KEYS.LEFT:
         this.left = key_state;
@@ -22,6 +22,12 @@ export default class Controller {
       case KEYS.UP:
         this.up = key_state;
         break;
+      case KEYS.DOWN:
+        this.down = key_state;
+        break;
+      case KEYS.DASH:
+        this.dash = key_state;
+        break;
       default:
         break;
     }
@@ -31,5 +37,7 @@ export default class Controller {
 const KEYS = {
   LEFT: 37,
   RIGHT: 39,
-  UP: 38
+  UP: 38,
+  DOWN: 40,
+  DASH: 191
 };
