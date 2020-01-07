@@ -1,3 +1,11 @@
+const KEYS = {
+  LEFT: 37,
+  RIGHT: 39,
+  UP: 38,
+  DOWN: 40,
+  DASH: 191
+};
+
 export default class Controller {
   constructor(player) {
     this.left = false;
@@ -33,11 +41,3 @@ export default class Controller {
     }
   }
 }
-
-const KEYS = {
-  LEFT: 37,
-  RIGHT: 39,
-  UP: 38,
-  DOWN: 40,
-  DASH: 191
-};
