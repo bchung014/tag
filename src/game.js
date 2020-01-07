@@ -21,9 +21,12 @@ export default class Game {
   }
 
   render() {
-    if (this.controller.up && this.playerOne.jumping === false) {
-      this.playerOne.yVelocity -= 15;
-      this.playerOne.jumping = true;
+    console.log(this.playerOne.jumping);
+    
+
+    if (this.controller.up && this.playerOne.jumping < 3) {
+      this.playerOne.yVelocity -= 10;
+      this.playerOne.jumping += 1;
     }
 
     if (this.controller.left) this.playerOne.xVelocity -= 0.5;
