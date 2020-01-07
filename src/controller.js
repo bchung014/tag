@@ -1,5 +1,3 @@
-import Player from './player';
-
 export default class Controller {
   constructor(player) {
     this.left = false;
@@ -12,15 +10,16 @@ export default class Controller {
   keyPressed(event) {
     var key_state = (event.type == "keydown") ? true : false;
 
-    switch (event.keyCode) {
-      case 37: // left key
-        this.left = key_state;
 
+    
+    switch (event.keyCode) {
+      case KEYS.LEFT:
+        this.left = key_state;
         break;
-      case 39: // right key
+      case KEYS.RIGHT:
         this.right = key_state;
         break;
-      case 38: // up key
+      case KEYS.UP:
         this.up = key_state;
         break;
       default:
@@ -28,3 +27,9 @@ export default class Controller {
     }
   }
 }
+
+const KEYS = {
+  LEFT: 37,
+  RIGHT: 39,
+  UP: 38
+};

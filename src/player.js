@@ -10,21 +10,34 @@ export default class Player {
     this.xVelocity = 0;
     this.yVelocity = 0;
 
-    this.jumping = true;
+    this.jumping = 0;
+
+    this.onCooldown = false;
 
     this.controller = controller;
   }
 
   move() {
-    if (this.controller.up && this.jumping === false) {
-      this.yVelocity -= 10;
-      this.jumping = true;
+    // Double jump mechanic
+    if (this.controller.up && !this.onCooldown) {
+      if (this.jumping === 0) {
+        this.yVelocity -= 10;
+        this.jumping += 1;
+        
+        this.onCooldown = true;
+        setTimeout(() => this.onCooldown = false, 300);
+      } else if (this.jumping === 1) {
+        this.yVelocity = 0;
+        this.yVelocity -= 10;
+        this.jumping += 1;
+      }
+
     }
 
     if (this.controller.left) this.xVelocity -= 0.5;
     if (this.controller.right) this.xVelocity += 0.5;
 
-    this.yVelocity += 1.5; // gravity
+    this.yVelocity += 0.5; // gravity
     this.x += this.xVelocity;
     this.y += this.yVelocity;
     this.xVelocity *= 0.9; // friction
@@ -32,7 +45,7 @@ export default class Player {
 
     // if this is falling below floor line
     if (this.y > 180 - 16 - 32) {
-      this.jumping = false;
+      this.jumping = 0;
       this.y = 180 - 16 - 32;
       this.yVelocity = 0;
     }
@@ -46,14 +59,14 @@ export default class Player {
   }
 
   draw(ctx) {
+    // Change player position based on movement options
     this.move();
 
-
-    ctx.fillStyle = "#ff0000";// hex for red
+    ctx.fillStyle = "pink";
     ctx.beginPath();
     ctx.rect(this.x, this.y, this.width, this.height);
     ctx.fill();
-    ctx.strokeStyle = "#202830";
-    ctx.stroke();
+    // ctx.strokeStyle = "#202830";
+    // ctx.stroke();
   }
 }

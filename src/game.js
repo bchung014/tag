@@ -26,16 +26,12 @@ export default class Game {
   }
 
   render() {
-
     // Drawing canvas BG, move this eventually
-    this.ctx.fillStyle = "#ffefff";
+    this.ctx.fillStyle = "white";
     this.ctx.fillRect(0, 0, 320, 180);// x, y, width, height
-    this.ctx.stroke();
-
 
     // Draws player one
     this.playerOne.draw(this.ctx);
-
 
     // Recursively re-render
     window.requestAnimationFrame(this.render);
