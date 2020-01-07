@@ -1,19 +1,35 @@
 const CONSTANTS = {
-  SPEED: 2.0,
+  SPEED: 1.5,
   JUMP_HEIGHT: 20.0,
   FASTFALL_SPEED: 5.0,
-  DASH_SPEED: 40.0,
-  GRAVITY: 1.3,
+  DASH_SPEED: 20.0,
+  GRAVITY: 1.5,
   FRICTION: 0.9,
 };
 
+const WALK_CYCLE = [
+  [9, 67, 30, 42],
+  [44, 67, 30, 42],
+  [79, 67, 33, 42],
+  [117, 67, 30, 42],
+  [152, 67, 29, 42],
+  [186, 67, 29, 42]
+];
+
+const IDLE_CYCLE = [
+  [9, 17, 31, 41],
+  [45, 17, 31, 41],
+  [81, 17, 31, 41],
+  [117, 17, 31, 41]
+];
 
 export default class Player {
-  constructor(ctx, controller) {
+  constructor(ctx, controller, map) {
     this.image = this.getImage();
 
-    this.width = this.image.width;
-    this.height = this.image.height;
+    // These are hardcoded values based on average size of sprite
+    this.width = 33;
+    this.height = 42;
 
     // Center of canvas
     this.x = 144;
@@ -24,16 +40,21 @@ export default class Player {
     this.yVelocity = 0;
 
     this.jumping = 0;
+    this.sliding = false;
 
     this.onCooldown = {
       doubleJump: false,
       dash: false
     };
 
+    this.frameCount = {
+      idle: 0,
+      walk: 0
+    };
+
     this.ctx = ctx;
     this.controller = controller;
-
-    this.frameCount = 0;
+    this.map = map;
   }
 
   getImage() {
@@ -60,28 +81,29 @@ export default class Player {
       }
     }
 
+    // Fastfalling
+    if (this.controller.down) {
+      this.yVelocity += CONSTANTS.FASTFALL_SPEED;
+    }
+
     // Dashing
     if (this.controller.dash && !this.onCooldown.dash) {
       if (this.xVelocity > 0) {
         this.xVelocity = 0;
-        this.xVelocity += CONSTANTS.DASH_SPEED;
+        this.xVelocity += CONSTANTS.DASH_SPEED; 
       } else {
         this.xVelocity = 0;
         this.xVelocity -= CONSTANTS.DASH_SPEED;
       }
       this.onCooldown.dash = true;
-      setTimeout(() => this.onCooldown.dash = false, 2000);
+      setTimeout(() => this.onCooldown.dash = false, 1000);
     } 
 
     if (this.controller.left) this.xVelocity -= CONSTANTS.SPEED;
     if (this.controller.right) this.xVelocity += CONSTANTS.SPEED;
-    if (this.controller.down) this.yVelocity += CONSTANTS.FASTFALL_SPEED;
-
-
 
     this.yVelocity += CONSTANTS.GRAVITY; // gravity
     this.xVelocity *= CONSTANTS.FRICTION; // friction
-    // this.yVelocity *= 0.9; // friction
     this.x += this.xVelocity;
     this.y += this.yVelocity;
 
@@ -101,53 +123,63 @@ export default class Player {
     } else if (this.x > this.ctx.canvas.width) {// if this goes past right boundary
       this.x = -this.width;
     }
+
+    this.collisionDetector();
+  
   }
 
   animate(x1, y1, x2, y2) {
-    this.ctx.drawImage(this.image, x1, y1, x2, y2, this.x, this.y, x2, y2);
+    // Faces direction of last movement
+    if (this.xVelocity < 0) {
+      this.ctx.scale(-1, 1);
+      this.ctx.drawImage(this.image, x1, y1, x2, y2, -this.x - this.width, this.y, x2, y2);
+      this.ctx.scale(-1, 1);
+    } else {
+      this.ctx.drawImage(this.image, x1, y1, x2, y2, this.x, this.y, x2, y2);
+    }
   }
 
-  step() {
-    const walkCycle = [
-      [0, 0, 30, 42],
-      [35, 0, 30, 42],
-      [70, 0, 33, 42],
-      [108, 0, 30, 42],
-      [143, 0, 29, 42],
-      [177, 0, 29, 42]
-    ];
+  idle() {
+    this.animate(...IDLE_CYCLE[Math.floor(this.frameCount.idle / 15)]);
+    this.frameCount.idle++;
+    if (this.frameCount.idle === 60) this.frameCount.idle = 0;
+  }
 
-    this.animate(...walkCycle[Math.floor(this.frameCount / 10)]);
+  walk() {
+    this.animate(...WALK_CYCLE[Math.floor(this.frameCount.walk / 10)]);
+    this.frameCount.walk++;
+    if (this.frameCount.walk === 60) this.frameCount.walk = 0;
+  }
 
-    // if (this.frameCount < 10) this.animate(...walkCycle[0]);
-    // else if (this.frameCount >= 11) this.animate(...walkCycle[1]);
-    // else if (this.frameCount >= 22) this.animate(...walkCycle[2]);
+  collisionDetector() {
+    this.map.platforms.forEach(platform => {
+      if (this.y === platform.y) {
+        console.log('hit');
+      }
+    });
 
+    // if (this.y > this.ctx.canvas.height - this.height) {
+    //   this.jumping = 0;
+    //   this.y = this.ctx.canvas.height - this.height;
+    //   this.yVelocity = 0;
+    // }
 
-
-    this.frameCount++;
-    if (this.frameCount === 60) this.frameCount = 0;
   }
 
   draw() {
     // Change player position based on movement options
     this.move();
+    
+    if (this.controller.left || this.controller.right) {
+      this.walk();
+    } else {
+      this.idle();
+    }
 
-    this.step();
 
     // this.ctx.fillStyle = "pink";
     // this.ctx.beginPath();
     // this.ctx.rect(this.x, this.y, this.width, this.height);
     // this.ctx.fill();
-
-    // this.animate(0, 0, 30, 42);
-
-    
-    // this.animate(35, 0, 30, 42);
-
-    // this.ctx.drawImage(this.image, 0, 0, 30, 42, this.x, this.y, 30 * 10, 42 * 10);
-    // this.ctx.drawImage(this.image, 35, 0, 30, 42, this.x, this.y, 35 * 10, 42 * 10);
-    // this.ctx.strokeStyle = "#202830";
-    // this.ctx.stroke();
   }
 }

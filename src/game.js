@@ -1,5 +1,6 @@
 import Player from './player';
 import Controller from './controller';
+import Map from './map';
 
 export default class Game {
   constructor() {
@@ -9,8 +10,10 @@ export default class Game {
     // Key controller
     this.controller = new Controller();
 
+    this.map = new Map(this.ctx);
+
     // Player one
-    this.playerOne = new Player(this.ctx, this.controller);
+    this.playerOne = new Player(this.ctx, this.controller, this.map);
 
     // Renders components
     this.render = this.render.bind(this);
@@ -27,8 +30,10 @@ export default class Game {
 
   render() {
     // Drawing canvas BG, move this eventually
-    this.ctx.fillStyle = "white";
+    this.ctx.fillStyle = "skyblue";
     this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);// x, y, width, height
+
+    this.map.draw();
 
     // Draws player one
     this.playerOne.draw();
