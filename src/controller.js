@@ -1,35 +1,29 @@
 import Player from './player';
 
 export default class Controller {
-  constructor(player) {
-    this.player = player;
+  constructor() {
+    this.left = false;
+    this.right = false;
+    this.up = false;
 
     this.keyPressed = this.keyPressed.bind(this);
   }
 
   keyPressed(event) {
-    switch(event.keyCode) {
-      case 38:
-        this.player.move('up');
+    var key_state = (event.type == "keydown") ? true : false;
+
+    switch (event.keyCode) {
+      case 37: // left key
+        this.left = key_state;
         break;
-      case 40:
-        this.player.move('down');
+      case 39: // right key
+        this.right = key_state;
         break;
-      case 37:
-        this.player.move('left');
-        break;
-      case 39:
-        this.player.move('right');
+      case 38: // up key
+        this.up = key_state;
         break;
       default:
         break;
     }
-
-    // if (event.keyCode === 39) {
-    //   this.player.move('right');
-    // } else if (event.keyCode === 37) {
-    //   this.player.move('left');
-    // }
   }
-
 }
