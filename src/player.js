@@ -104,6 +104,8 @@ export default class Player {
 
     this.oldX = this.x;// store the last position of the player
     this.oldY = this.y;// before we move it on this cycle
+    // console.log(`oldX: ${this.oldX}, oldY: ${this.oldY}`);
+
  
 
     if (this.controller.left) this.xVelocity -= CONSTANTS.SPEED;
@@ -113,6 +115,8 @@ export default class Player {
     this.xVelocity *= CONSTANTS.FRICTION; // friction
     this.x += this.xVelocity;
     this.y += this.yVelocity;
+
+    // console.log(`newX: ${this.x}, newY: ${this.y}`)
 
     // if this is falling below floor line
     if (this.y > this.ctx.canvas.height - this.height) {
