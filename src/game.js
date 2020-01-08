@@ -1,29 +1,27 @@
-import Player from './player';
+import Runner from './players/runner';
 import Controller from './controller';
 import Map from './map';
 import Collision from './collision';
 
 export default class Game {
   constructor() {
-    // Set context for canvas
     this.ctx = document.getElementById('gameWindow').getContext('2d');
 
-    // Key controller
     this.controller = new Controller();
-
     this.map = new Map(this.ctx);
 
-    // Player one
-    this.playerOne = new Player(this.ctx, this.controller, this.map);
 
-    this.collision = new Collision(this.map, [this.playerOne]);
+    this.playerOne = new Runner(this.ctx, this.controller, 70, 0, 1);
+    this.playerTwo = new Runner(this.ctx, this.controller, 1260, 0, 2);
 
-    // Renders components
+    // Send collision object an array of players to check all players
+    this.collision = new Collision(this.map, [this.playerOne, this.playerTwo]);
+
+    // Renders components, bound because callback
     this.render = this.render.bind(this);
   }
   
   initialize() {
-    // Add event listeners for controller input
     window.addEventListener("keydown", this.controller.keyPressed);
     window.addEventListener("keyup", this.controller.keyPressed);
 
@@ -34,11 +32,9 @@ export default class Game {
   render() {
     this.map.draw();
     this.collision.checkMapCollisions();
-
-    // Draws player one
     this.playerOne.draw();
+    this.playerTwo.draw();
 
-    // Recursively re-render
     window.requestAnimationFrame(this.render);
   }
 }

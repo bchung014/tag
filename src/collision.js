@@ -4,6 +4,7 @@ export default class Collision {
     this.players = players;
   }
 
+  // Get all four potential collision sides of an object
   getCollisionAngles(object, side) {
     switch(side) {
       case 'left':
@@ -37,8 +38,11 @@ export default class Collision {
             player.jumping = 0;
             player.yVelocity = 0;
             player.y = player.oldY = top - player.height - 0.01;
+            player.colliding = true;
           }
         }
+      } else {
+        player.colliding = false;
       }
     });
   }
