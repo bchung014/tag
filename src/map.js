@@ -1,33 +1,26 @@
-import Platform from './platform';
-
 export default class Map {
   constructor(ctx) {
     this.ctx = ctx;
 
-    this.platforms = this.generatePlatforms();
-  }
-
-  generatePlatforms() {
-    const platform = new Platform(400, 600, 500, 80, 'pink');
-
-    return [platform];
+    this.tileMap = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.tileSize = 70;
+    this.rows = 10;
+    this.cols = 20;
   }
 
   draw() {
-    this.platforms.forEach(platform => {
-      this.ctx.fillStyle = platform.color;
-      this.ctx.beginPath();
-      this.ctx.rect(platform.x, platform.y, platform.width, platform.height);
-      this.ctx.fill();
-    });
-
+    for (let tile = 0; tile < this.tileMap.length; tile++) {
+      this.ctx.fillStyle = this.tileMap[tile] === 0 ? "#E0FFFF" : "black";
+      this.ctx.fillRect((tile % 20) * this.tileSize, Math.floor(tile / 20) * this.tileSize, this.tileSize, this.tileSize);
+    }
   }
-
-
 }
-
-// this.ctx.lineWidth = 4;
-// this.ctx.beginPath();
-// this.ctx.moveTo(0, 164);
-// this.ctx.lineTo(320, 164);
-// this.ctx.stroke();

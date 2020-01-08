@@ -24,7 +24,7 @@ const IDLE_CYCLE = [
 ];
 
 export default class Player {
-  constructor(ctx, controller, map) {
+  constructor(ctx, controller) {
     this.image = this.getImage();
 
     // These are hardcoded values based on average size of sprite
@@ -57,7 +57,6 @@ export default class Player {
 
     this.ctx = ctx;
     this.controller = controller;
-    this.map = map;
   }
 
   getImage() {
@@ -132,8 +131,6 @@ export default class Player {
     } else if (this.x > this.ctx.canvas.width) {// if this goes past right boundary
       this.x = -this.width;
     }
-
-    this.collisionDetector();
   
   }
 
@@ -158,21 +155,6 @@ export default class Player {
     this.animate(...WALK_CYCLE[Math.floor(this.frameCount.walk / 10)]);
     this.frameCount.walk++;
     if (this.frameCount.walk === 60) this.frameCount.walk = 0;
-  }
-
-  collisionDetector() {
-    this.map.platforms.forEach(platform => {
-      if (this.y === platform.y) {
-        console.log('hit');
-      }
-    });
-
-    // if (this.y > this.ctx.canvas.height - this.height) {
-    //   this.jumping = 0;
-    //   this.y = this.ctx.canvas.height - this.height;
-    //   this.yVelocity = 0;
-    // }
-
   }
 
   draw() {
