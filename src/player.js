@@ -36,6 +36,9 @@ export default class Player {
     // Spawn above the canvas
     this.y = -100;
 
+    this.oldX = 0;
+    this.oldY = 0;
+
     this.xVelocity = 0;
     this.yVelocity = 0;
 
@@ -98,6 +101,10 @@ export default class Player {
       this.onCooldown.dash = true;
       setTimeout(() => this.onCooldown.dash = false, 1000);
     } 
+
+    this.oldX = this.x;// store the last position of the player
+    this.oldY = this.y;// before we move it on this cycle
+ 
 
     if (this.controller.left) this.xVelocity -= CONSTANTS.SPEED;
     if (this.controller.right) this.xVelocity += CONSTANTS.SPEED;
