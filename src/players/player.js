@@ -9,7 +9,7 @@ const CONSTANTS = {
 };
 
 export default class Player {
-  constructor(ctx, controller, spawnX, spawnY, playerNumber) {
+  constructor(ctx, controller, spawn, playerNumber) {
     this.image = this.getImage();
 
     // These are hardcoded values based on average size of sprite
@@ -17,8 +17,8 @@ export default class Player {
     this.height = 42;
 
     // Set these to spawn values, hardcoded rn
-    this.x = spawnX;
-    this.y = spawnY;
+    this.x = spawn[0];
+    this.y = spawn[1];
     this.oldX = 70;
     this.oldY = -100;
 
@@ -26,7 +26,6 @@ export default class Player {
     this.yVelocity = 0;
 
     this.jumping = 0;
-    // this.sliding = false;
     this.colliding = false;
 
     this.onCooldown = {
@@ -41,6 +40,7 @@ export default class Player {
     };
 
     this.playerNumber = playerNumber;
+    this.playerControls = this.getPlayerControls();
     this.ctx = ctx;
     this.controller = controller;
   }
@@ -62,35 +62,34 @@ export default class Player {
   getPlayerControls() {
     return this.playerNumber === 1 ?
       {
-        left: this.controller.leftPlayerOne,
-        right: this.controller.rightPlayerOne,
-        up: this.controller.upPlayerOne,
-        down: this.controller.downPlayerOne,
-        dash: this.controller.dashPlayerOne,
+        left: 'leftPlayerOne',
+        right: 'rightPlayerOne',
+        up: 'upPlayerOne',
+        down: 'downPlayerOne',
+        dash: 'dashPlayerOne',
+        tag: 'tagPlayerOne'
       } : {
-        left: this.controller.leftPlayerTwo,
-        right: this.controller.rightPlayerTwo,
-        up: this.controller.upPlayerTwo,
-        down: this.controller.downPlayerTwo,
-        dash: this.controller.dashPlayerTwo,
+        left: 'leftPlayerTwo',
+        right: 'rightPlayerTwo',
+        up: 'upPlayerTwo',
+        down: 'downPlayerTwo',
+        dash: 'dashPlayerTwo',
       };
   }
 
   move() {
-    const playerControls = this.getPlayerControls();
-
     // Jumping and double jumping
-    if (playerControls.up) this.jump();
+    if (this.controller[this.playerControls.up]) this.jump();
 
     // Dashing
-    if (playerControls.dash) this.dash(playerControls);
+    if (this.controller[this.playerControls.dash]) this.dash();
 
     // Fastfalling
-    if (playerControls.down) this.fastfall();
+    if (this.controller[this.playerControls.down]) this.fastfall();
  
     // Running
-    if (playerControls.left) this.xVelocity -= CONSTANTS.SPEED;
-    if (playerControls.right) this.xVelocity += CONSTANTS.SPEED;
+    if (this.controller[this.playerControls.left]) this.xVelocity -= CONSTANTS.SPEED;
+    if (this.controller[this.playerControls.right]) this.xVelocity += CONSTANTS.SPEED;
 
     this.yVelocity += CONSTANTS.GRAVITY;
     this.xVelocity *= CONSTANTS.FRICTION;
@@ -124,12 +123,12 @@ export default class Player {
     }
   }
 
-  dash(playerControls) {
+  dash() {
     if (!this.onCooldown.dash) {
-      if (playerControls.right) {
+      if (this.controller[this.playerControls.right]) {
         this.xVelocity = 0;
         this.xVelocity += CONSTANTS.DASH_SPEED;
-      } else if (playerControls.left) {
+      } else if (this.controller[this.playerControls.left]) {
         this.xVelocity = 0;
         this.xVelocity -= CONSTANTS.DASH_SPEED;
       }

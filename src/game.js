@@ -11,11 +11,11 @@ export default class Game {
     this.map = new Map(this.ctx);
 
 
-    this.playerOne = new Runner(this.ctx, this.controller, 70, 0, 1);
-    this.playerTwo = new Runner(this.ctx, this.controller, 1260, 0, 2);
+    this.playerOne = new Runner(this.ctx, this.controller, [70, 0], 1);
+    this.playerTwo = new Runner(this.ctx, this.controller, [1260, 0], 2);
 
     // Send collision object an array of players to check all players
-    this.collision = new Collision(this.map, [this.playerOne, this.playerTwo]);
+    this.collision = new Collision(this.map, [this.playerOne, this.playerTwo], this.controller);
 
     // Renders components, bound because callback
     this.render = this.render.bind(this);
@@ -32,6 +32,7 @@ export default class Game {
   render() {
     this.map.draw();
     this.collision.checkMapCollisions();
+    this.collision.playersCollided();
     this.playerOne.draw();
     this.playerTwo.draw();
 

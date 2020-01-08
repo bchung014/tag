@@ -3,7 +3,8 @@ const P1_KEYS = {
   RIGHT: 39,
   UP: 38,
   DOWN: 40,
-  DASH: 191
+  DASH: 191,
+  TAG: 190
 };
 
 const P2_KEYS = {
@@ -21,6 +22,7 @@ export default class Controller {
     this.upPlayerOne = false;
     this.downPlayerOne = false;
     this.dashPlayerOne = false;
+    this.tagPlayerOne = false;
 
     this.leftPlayerTwo = false;
     this.rightPlayerTwo = false;
@@ -49,6 +51,9 @@ export default class Controller {
         break;
       case P1_KEYS.DASH:
         this.dashPlayerOne = key_state;
+        break;
+      case P1_KEYS.TAG:
+        this.tagPlayerOne = key_state;
         break;
 
       case P2_KEYS.LEFT:

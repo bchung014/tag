@@ -29,9 +29,7 @@ const TAG_CYCLE = [
 ];
 
 export default class Runner extends Player {
-  constructor(ctx, controller, spawnX, spawnY, playerNumber) {
-    super(ctx, controller, spawnX, spawnY, playerNumber);
-  }
+
 
   //***********************************************************************
   // 
@@ -57,7 +55,6 @@ export default class Runner extends Player {
     if (this.frameCount.tag === 14) this.frameCount.tag = 0;
   }
 
-
   
   //***********************************************************************
   // 
@@ -68,11 +65,10 @@ export default class Runner extends Player {
   draw() {
     this.move();
 
-    // if (this.controller.tag) {
-    //   this.tag();
-    // }
-    
-    if (this.controller.left || this.controller.right) {
+    console.log(this.controller.tagPlayerOne);
+    if (this.controller[this.playerControls.tag]) {
+      this.tag();
+    } else if (this.controller[this.playerControls.left] || this.controller[this.playerControls.right]) {
       this.walk();
     } else {
       this.idle();

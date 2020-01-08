@@ -1,7 +1,17 @@
 export default class Collision {
-  constructor(map, players) {
+  constructor(map, players, controller) {
     this.map = map;
     this.players = players;
+    // this.controller = controller;
+  }
+
+  playersCollided() {
+    if (this.players[0].x < this.players[1].x + this.players[1].width &&
+      this.players[0].x + this.players[0].width > this.players[1].x &&
+      this.players[0].y < this.players[1].y + this.players[1].height &&
+      this.players[0].y + this.players[0].height > this.players[1].y) {
+      alert('tagged');
+    }
   }
 
   // Get all four potential collision sides of an object
