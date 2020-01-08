@@ -28,7 +28,7 @@ const TAG_CYCLE = [
   [9, 168, 31, 42]
 ];
 
-export default class Runner extends Player {
+export default class Tagger extends Player {
 
   //***********************************************************************
   // 
@@ -54,7 +54,7 @@ export default class Runner extends Player {
     if (this.frameCount.tag === 14) this.frameCount.tag = 0;
   }
 
-  
+
   //***********************************************************************
   // 
   //  Draw and animation controller
