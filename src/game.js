@@ -44,41 +44,64 @@ export default class Game {
                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                  0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+                  1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1,
                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
     const size = 70;
-    const cols = 20;
     const rows = 10;
+    const cols = 20;
 
     for (let i = 0; i < map.length; i++) {
       this.ctx.fillStyle = map[i] === 0 ? "white" : "black";
       this.ctx.fillRect((i % 20) * size, Math.floor(i / 20) * size, size, size);
     }
 
-    // Draws player one
-    this.playerOne.draw();
+    this.ctx.fillStyle = 'green';
+    this.ctx.fillRect(560, 0, size, size);
+    this.ctx.fillStyle = 'blue';
+    this.ctx.fillRect(560, 70, size, size);
+    this.ctx.fillStyle = 'red';
+    this.ctx.fillRect(560, 140, size, size);
+    this.ctx.fillStyle = 'pink';
+    this.ctx.fillRect(560, 210, size, size);
+    this.ctx.fillStyle = 'yellow';
+    this.ctx.fillRect(560, 280, size, size);
+    this.ctx.fillStyle = 'cyan';
+    this.ctx.fillRect(560, 350, size, size);
 
-    // columns Y
+    // Determines the player's current tile X (column) position
+    // Add player's starting X draw coordinate 
     const tileX = Math.floor((this.playerOne.x + this.playerOne.width * 0.5) / size);
-    const tileY = Math.floor((this.playerOne.y) / size);
 
+    console.log((this.playerOne.x + this.playerOne.width) * 0.5);
+    // Y is rows 
+    const tileY = Math.floor((this.playerOne.y + this.playerOne.height) / size);
+
+    // console.log(this.playerOne.width);
+    // console.log(`${tileX}, ${tileY}`);
     const tileAt = map[tileY * cols + tileX];
-    console.log(tileAt);
+    // console.log(tileAt);
     
+
     if (tileAt === 1) {
       if (this.playerOne.yVelocity > 0) {
         const top = tileY * size;
-        // console.log(this.playerOne.y + this.playerOne.height);
 
         if (this.playerOne.y + this.playerOne.height > top) {
-          this.playerOne.jumping = false;
+          // console.log(this.playerOne.y + this.playerOne.height);
+          // console.log('platform');
+          this.playerOne.jumping = 0;
           this.playerOne.yVelocity = 0;
+          this.playerOne.y = top - this.playerOne.height - 0.01;
         }
 
       }
     }
 
+
+
+    // Draws player one
+    this.playerOne.draw();
 
     // Recursively re-render
     window.requestAnimationFrame(this.render);

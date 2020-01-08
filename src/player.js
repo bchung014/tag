@@ -32,12 +32,12 @@ export default class Player {
     this.height = 42;
 
     // Center of canvas
-    this.x = 144;
+    this.x = 70;
     // Spawn above the canvas
     this.y = -100;
 
-    this.oldX = 0;
-    this.oldY = 0;
+    this.oldX = 144;
+    this.oldY = -100;
 
     this.xVelocity = 0;
     this.yVelocity = 0;
@@ -113,8 +113,6 @@ export default class Player {
     this.xVelocity *= CONSTANTS.FRICTION; // friction
     this.x += this.xVelocity;
     this.y += this.yVelocity;
-
-
 
     // if this is falling below floor line
     if (this.y > this.ctx.canvas.height - this.height) {
