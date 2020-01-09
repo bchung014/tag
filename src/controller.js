@@ -17,18 +17,18 @@ const P2_KEYS = {
 
 export default class Controller {
   constructor() {
-    this.leftPlayerOne = false;
-    this.rightPlayerOne = false;
-    this.upPlayerOne = false;
-    this.downPlayerOne = false;
-    this.dashPlayerOne = false;
-    this.tagPlayerOne = false;
+    // this.leftPlayerOne = false;
+    // this.rightPlayerOne = false;
+    // this.upPlayerOne = false;
+    // this.downPlayerOne = false;
+    // this.dashPlayerOne = false;
+    // this.tagPlayerOne = false;
 
-    this.leftPlayerTwo = false;
-    this.rightPlayerTwo = false;
-    this.upPlayerTwo = false;
-    this.downPlayerTwo = false;
-    this.dashPlayerTwo = false;
+    // this.leftPlayerTwo = false;
+    // this.rightPlayerTwo = false;
+    // this.upPlayerTwo = false;
+    // this.downPlayerTwo = false;
+    // this.dashPlayerTwo = false;
 
     this.keyPressed = this.keyPressed.bind(this);
   }
@@ -38,38 +38,38 @@ export default class Controller {
 
     switch (event.keyCode) {
       case P1_KEYS.LEFT:
-        this.leftPlayerOne = key_state;
+        this.leftP1 = key_state;
         break;
       case P1_KEYS.RIGHT:
-        this.rightPlayerOne = key_state;
+        this.rightP1 = key_state;
         break;
       case P1_KEYS.UP:
-        this.upPlayerOne = key_state;
+        this.upP1 = key_state;
         break;
       case P1_KEYS.DOWN:
-        this.downPlayerOne = key_state;
+        this.downP1 = key_state;
         break;
       case P1_KEYS.DASH:
-        this.dashPlayerOne = key_state;
+        this.dashP1 = key_state;
         break;
       case P1_KEYS.TAG:
-        this.tagPlayerOne = key_state;
+        this.tagP1 = key_state;
         break;
 
       case P2_KEYS.LEFT:
-        this.leftPlayerTwo = key_state;
+        this.leftP2 = key_state;
         break;
       case P2_KEYS.RIGHT:
-        this.rightPlayerTwo = key_state;
+        this.rightP2 = key_state;
         break;
       case P2_KEYS.UP:
-        this.upPlayerTwo = key_state;
+        this.upP2 = key_state;
         break;
       case P2_KEYS.DOWN:
-        this.downPlayerTwo = key_state;
+        this.downP2 = key_state;
         break;
       case P2_KEYS.DASH:
-        this.dashPlayerTwo = key_state;
+        this.dashP2 = key_state;
         break;
 
       default:

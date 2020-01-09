@@ -1,8 +1,9 @@
 export default class Collision {
-  constructor(map, players, controller) {
+  constructor(map, players, timer) {
     this.map = map;
     this.players = players;
-    // this.controller = controller;
+
+    this.timer = timer;
   }
 
   playersCollided() {
@@ -10,7 +11,13 @@ export default class Collision {
       this.players[0].x + this.players[0].width > this.players[1].x &&
       this.players[0].y < this.players[1].y + this.players[1].height &&
       this.players[0].y + this.players[0].height > this.players[1].y) {
-      alert('tagged');
+      
+      this.players.forEach(player => {
+        if (!player.cooldown.tag) {
+          player.tagged();
+          this.timer.time = 10;
+        }
+      });
     }
   }
 
