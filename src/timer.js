@@ -18,12 +18,6 @@ export default class Timer {
   }
 
   draw() {
-    if (this.gameover) {
-      this.ctx.font = "50px Arial";
-      this.ctx.fillStyle = "red";
-      this.ctx.fillText('gameover', 700, 200);
-    }
-
     this.ctx.font = "50px Arial";
     this.ctx.fillStyle = "red";
     this.ctx.fillText(this.time, 700, 50);

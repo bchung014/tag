@@ -15,7 +15,7 @@ export default class Collision {
       this.players.forEach(player => {
         if (!player.cooldown.tag) {
           player.tagged();
-          this.timer.time = 10;
+          this.timer.time = 3;
         }
       });
     }

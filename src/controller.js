@@ -72,6 +72,10 @@ export default class Controller {
         this.dashP2 = key_state;
         break;
 
+      case 82:
+        this.restart = key_state;
+        break;
+
       default:
         break;
     }

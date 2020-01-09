@@ -43,12 +43,22 @@ export default class Game {
     this.render();
   }
 
+  isGameover() {
+    return this.timer.gameover;
+  }
+
   render() {
     this.map.draw();
     this.timer.draw();
     this.collision.checkMapCollisions();
     this.collision.playersCollided();
     this.players.forEach(player => player.draw());
+    
+    if (this.isGameover()) {
+      this.ctx.font = "50px Arial";
+      this.ctx.fillStyle = "red";
+      this.ctx.fillText('gameover, press R to play again', 400, 200);
+    }
 
     window.requestAnimationFrame(() => {
       this.render();
