@@ -56,12 +56,13 @@ const TAG_CYCLE = [
 
 export default class Player {
   constructor(ctx, controller, playerNumber, spawnLocation, isTagger) {
-    this.image = this.getImage();
+    this.image = this.getImage('./assets/shrek.png');
     
     this.playerNumber = playerNumber;
     this.isTagger = isTagger;
 
     // These are hardcoded values based on average size of sprite
+    // Shrek is 33 x 42
     this.width = 33;
     this.height = 42;
 
@@ -95,9 +96,9 @@ export default class Player {
     this.controller = controller;
   }
 
-  getImage() {
+  getImage(imagePath) {
     const image = new Image();
-    image.src = './assets/shrek.png';
+    image.src = imagePath;
     return image;
   }
 

@@ -30,6 +30,8 @@ export default class Game {
     this.P2 = new Player(this.ctx, this.controller, PLAYER_NUMBER.P2, SPAWN_LOCATION.P2, false);
     this.players = [this.P1, this.P2];
 
+    // this.P3 = new Tagger(this.ctx, this.controller, 1, [400, 400], false);
+
     this.collision = new Collision(this.map, this.players, this.timer);
   }
   
@@ -53,12 +55,13 @@ export default class Game {
     this.collision.checkMapCollisions();
     this.collision.playersCollided();
     this.players.forEach(player => player.draw());
+
     
-    if (this.isGameover()) {
-      this.ctx.font = "50px Arial";
-      this.ctx.fillStyle = "red";
-      this.ctx.fillText('gameover, press R to play again', 400, 200);
-    }
+    // if (this.isGameover()) {
+    //   this.ctx.font = "50px Arial";
+    //   this.ctx.fillStyle = "red";
+    //   this.ctx.fillText('gameover, press R to play again', 400, 200);
+    // }
 
     window.requestAnimationFrame(() => {
       this.render();
