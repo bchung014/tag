@@ -2,10 +2,6 @@ import Controller from './controller';
 import Map from './map';
 import Collision from './collision';
 import Timer from './timer';
-
-import Player from './players/player';
-
-// eventually split these into two for sprites?
 import Runner from './players/runner';
 import Tagger from './players/tagger';
 
@@ -31,6 +27,14 @@ export default class Game {
     this.players = [this.P1, this.P2];
 
     this.collision = new Collision(this.map, this.players, this.timer);
+
+    this.gif = this.loadGif();
+  }
+
+  loadGif() {
+    const myGif = new Image();
+    myGif.src = "./assets/victoryroyale.gif";
+    return myGif;
   }
   
   initialize() {
@@ -43,11 +47,34 @@ export default class Game {
     this.render();
   }
 
+  getWinner() {
+    let winner;
+
+    this.players.forEach(player => { 
+      if (!player.isTagger) {
+        winner = player;
+      }
+    });
+
+    return winner;
+  }
+
   isGameover() {
-    return this.timer.gameover;
+    const winner = this.getWinner();
+
+    if (this.timer.gameover) {
+      // this.ctx.drawImage(this.gif, 0, 0, 1400, 700);
+      this.ctx.clearRect(0, 0, 1400, 700);
+      this.ctx.font = "50px Arial";
+      this.ctx.fillStyle = "red";
+      this.ctx.fillText(`gameover congrats Player ${winner.playerNumber} everyone is bad but u`, 100, 200);
+      this.render();
+    }
   }
 
   render() {
+    this.isGameover();
+
     this.map.draw();
     this.timer.draw();
     this.players.forEach(player => player.draw());
@@ -55,11 +82,6 @@ export default class Game {
     this.collision.checkMapCollisions();
     this.collision.tagOccurred();
 
-    // if (this.isGameover()) {
-    //   this.ctx.font = "50px Arial";
-    //   this.ctx.fillStyle = "red";
-    //   this.ctx.fillText('gameover, press R to play again', 400, 200);
-    // }
 
     window.requestAnimationFrame(() => {
       this.render();
