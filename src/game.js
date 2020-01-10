@@ -26,11 +26,9 @@ export default class Game {
     this.controller = new Controller();
     this.timer = new Timer(this.ctx);
 
-    this.P1 = new Player(this.ctx, this.controller, PLAYER_NUMBER.P1, SPAWN_LOCATION.P1, true);
-    this.P2 = new Player(this.ctx, this.controller, PLAYER_NUMBER.P2, SPAWN_LOCATION.P2, false);
+    this.P1 = new Tagger(this.ctx, this.controller, PLAYER_NUMBER.P1, SPAWN_LOCATION.P1, true);
+    this.P2 = new Runner(this.ctx, this.controller, PLAYER_NUMBER.P2, SPAWN_LOCATION.P2, false);
     this.players = [this.P1, this.P2];
-
-    // this.P3 = new Tagger(this.ctx, this.controller, 1, [400, 400], false);
 
     this.collision = new Collision(this.map, this.players, this.timer);
   }
