@@ -147,14 +147,14 @@ export default class Player {
 
   tagged() {
     // Handle hitstunning the newly tagged player
-    if (!this.isTagger) {
-      this.cooldown.hitstun = true;
-      setTimeout(() => this.cooldown.hitstun = false, 2000);
-    }
+    // if (!this.isTagger) {
+    //   this.cooldown.hitstun = true;
+    //   setTimeout(() => this.cooldown.hitstun = false, 2000);
+    // }
 
-    this.isTagger = !this.isTagger;
-    this.cooldown.tag = true;
-    setTimeout(() => this.cooldown.tag = false, 2000);
+    // this.isTagger = !this.isTagger;
+    // this.cooldown.tag = true;
+    // setTimeout(() => this.cooldown.tag = false, 2000);
   }
 
   //***********************************************************************

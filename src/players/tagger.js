@@ -18,7 +18,7 @@ export default class Tagger extends Player {
     this.image = this.getImage('./assets/handsprite.png');
 
     // Set original hitbox to idle frame 1
-    this.width = 64;
+    this.width = 54;
     this.height = 50;
 
     this.frameCount = {

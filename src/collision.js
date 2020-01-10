@@ -1,24 +1,42 @@
+import Runner from './players/runner';
+import Tagger from './players/tagger';
+
 export default class Collision {
   constructor(map, players, timer) {
     this.map = map;
     this.players = players;
-
     this.timer = timer;
+
+    this.tagCooldown = false;
   }
 
-  playersCollided() {
+  tagOccurred() {
     if (this.players[0].x < this.players[1].x + this.players[1].width &&
       this.players[0].x + this.players[0].width > this.players[1].x &&
       this.players[0].y < this.players[1].y + this.players[1].height &&
       this.players[0].y + this.players[0].height > this.players[1].y) {
-      
-      this.players.forEach(player => {
-        if (!player.cooldown.tag) {
-          player.tagged();
-          this.timer.time = 3;
-        }
-      });
+
+      if (!this.tagCooldown) {
+        this.players.forEach(player => player.isTagger = !player.isTagger);
+        this.changeTagger();
+        this.timer.time = 3;
+        this.tagCooldown = true;
+        setTimeout(() => this.tagCooldown = false, 2000);
+      }
     }
+  }
+
+  changeTagger() {
+    for (let i = 0; i < this.players.length; i++) {
+
+      
+    }
+
+    // if (!this.players[0].isTagger) {
+    //   this.players[0] = new Runner(this.players[0].ctx, this.players[0].controller, 1, [70,70], false);
+    // } else {
+    //   this.players[0] = new Tagger(this.players[0].ctx, this.players[0].controller, 1, [70,70], true);
+    // }
   }
 
   // Get all four potential collision sides of an object
