@@ -1,6 +1,8 @@
+const GAME_TIME = 10;
+
 export default class Timer {
   constructor(ctx) {
-    this.time = 3;
+    this.time = GAME_TIME;
     this.gameover = false;
     
     this.ctx = ctx;
@@ -15,6 +17,11 @@ export default class Timer {
         this.gameover = true;
       }
     }, 1000);
+  }
+
+  resetTimer() {
+    clearInterval();
+    this.time = GAME_TIME;
   }
 
   draw() {

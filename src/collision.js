@@ -19,7 +19,8 @@ export default class Collision {
       if (!this.tagCooldown) {
         this.players.forEach(player => player.isTagger = !player.isTagger);
         this.changeTagger();
-        this.timer.time = 3;
+        this.timer.time = 10;
+
         this.tagCooldown = true;
         setTimeout(() => this.tagCooldown = false, 2000);
       }
@@ -27,16 +28,21 @@ export default class Collision {
   }
 
   changeTagger() {
-    for (let i = 0; i < this.players.length; i++) {
-
-      
+    if (!this.players[0].isTagger) {
+      this.players[0] = new Runner(this.players[0].ctx, this.players[0].controller, 
+                                   this.players[0].playerNumber, [this.players[0].x, this.players[0].y], false);
+      this.players[1] = new Tagger(this.players[1].ctx, this.players[1].controller,
+                                   this.players[1].playerNumber, [this.players[1].x, this.players[1].y - 8], true);
+      this.players[1].cooldown.hitstun = true;
+      setTimeout(() => this.players[1].cooldown.hitstun = false, 2000);
+    } else {
+      this.players[0] = new Tagger(this.players[0].ctx, this.players[0].controller,
+                                   this.players[0].playerNumber, [this.players[0].x, this.players[0].y - 8], true);
+      this.players[1] = new Runner(this.players[1].ctx, this.players[1].controller,
+                                   this.players[1].playerNumber, [this.players[1].x, this.players[1].y], false);
+      this.players[0].cooldown.hitstun = true;
+      setTimeout(() => this.players[0].cooldown.hitstun = false, 2000);
     }
-
-    // if (!this.players[0].isTagger) {
-    //   this.players[0] = new Runner(this.players[0].ctx, this.players[0].controller, 1, [70,70], false);
-    // } else {
-    //   this.players[0] = new Tagger(this.players[0].ctx, this.players[0].controller, 1, [70,70], true);
-    // }
   }
 
   // Get all four potential collision sides of an object

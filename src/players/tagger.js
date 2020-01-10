@@ -48,6 +48,10 @@ export default class Tagger extends Player {
   //***********************************************************************
 
   draw() {
+    this.ctx.font = "40px Arial";
+    this.ctx.fillStyle = "red";
+    this.ctx.fillText("IT", this.x + 20, this.y);
+
     this.move();
 
     this.idle();
