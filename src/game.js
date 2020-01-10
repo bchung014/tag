@@ -27,14 +27,6 @@ export default class Game {
     this.players = [this.P1, this.P2];
 
     this.collision = new Collision(this.map, this.players, this.timer);
-
-    this.gif = this.loadGif();
-  }
-
-  loadGif() {
-    const myGif = new Image();
-    myGif.src = "./assets/victoryroyale.gif";
-    return myGif;
   }
   
   initialize() {
@@ -63,7 +55,6 @@ export default class Game {
     const winner = this.getWinner();
 
     if (this.timer.gameover) {
-      // this.ctx.drawImage(this.gif, 0, 0, 1400, 700);
       this.ctx.clearRect(0, 0, 1400, 700);
       this.ctx.font = "50px Arial";
       this.ctx.fillStyle = "red";

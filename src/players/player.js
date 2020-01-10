@@ -1,6 +1,6 @@
 // Player constants
 const CONSTANTS = {
-  SPEED: 1.5,
+  SPEED: 1.2,
   JUMP_HEIGHT: 20.0,
   FASTFALL_SPEED: 5.0,
   DASH_SPEED: 20.0,
