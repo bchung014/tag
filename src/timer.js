@@ -1,4 +1,4 @@
-const GAME_TIME = 10;
+const GAME_TIME = 9999;
 
 export default class Timer {
   constructor(ctx) {

@@ -67,6 +67,7 @@ export default class Collision {
       const right = Math.floor(this.getCollisionAngles(player, 'right') / this.map.tileSize);
       const top = Math.floor(this.getCollisionAngles(player, 'top') / this.map.tileSize);
       const bottom = Math.floor(this.getCollisionAngles(player, 'bottom') / this.map.tileSize);
+
       const bottomLeft = this.map.tileMap[bottom * this.map.cols + left];
       const bottomRight = this.map.tileMap[bottom * this.map.cols + right];
 
@@ -85,6 +86,7 @@ export default class Collision {
       } else {
         player.colliding = false;
       }
+
     });
   }
 }
