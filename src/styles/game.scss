@@ -60,14 +60,10 @@ body {
 }
 
 
-// Game container - holds control panel and canvas game
-.game-container {
-  
-  display: flex;
-  font-size: 20px;
-}
 
+// Holds the game canvas
 #gameWindow {
   width: 60vw;
 
+  border: 30px inset #FFF;
 }
