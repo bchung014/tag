@@ -45,6 +45,9 @@ export default class Collision {
     }
   }
 
+
+
+
   // Get all four potential collision sides of an object
   getCollisionAngles(object, side) {
     switch(side) {
@@ -68,25 +71,48 @@ export default class Collision {
       const top = Math.floor(this.getCollisionAngles(player, 'top') / this.map.tileSize);
       const bottom = Math.floor(this.getCollisionAngles(player, 'bottom') / this.map.tileSize);
 
+      
       const bottomLeft = this.map.tileMap[bottom * this.map.cols + left];
       const bottomRight = this.map.tileMap[bottom * this.map.cols + right];
+      
+      const topRight = this.map.tileMap[top * this.map.cols + right];
 
+      // console.log(`bottomRight: ${bottomRight}`);
+      // console.log(`topRight: ${right}`);
+      
+      player.colliding = false;
+      
       // Check bottom platform collision
-      if (bottomLeft || bottomRight) {
-        if (player.yVelocity > 0) {
-          const top = bottom * this.map.tileSize;
-
-          if (player.y + player.height > top && player.oldY + player.height <= top) {
-            player.jumping = 0;
-            player.yVelocity = 0;
-            player.y = player.oldY = top - player.height - 0.01;
-            player.colliding = true;
-          }
-        }
-      } else {
-        player.colliding = false;
-      }
+      if (bottomLeft || bottomRight) this.bottomCollision(player, bottom);
+      if (topRight) this.rightCollision(player, right);
+      
 
     });
   }
+
+
+  bottomCollision(player, bottom) {
+    if (player.yVelocity > 0) {
+      const topPlatform = bottom * this.map.tileSize;
+
+      if (player.y + player.height > topPlatform && player.oldY + player.height <= topPlatform) {
+        player.jumping = 0;
+        player.yVelocity = 0;
+        player.y = player.oldY = topPlatform - player.height - 0.01;
+        player.colliding = true;
+      }
+    }
+  }
+
+  rightCollision(player, right) {
+    if (player.xVelocity > 0) {
+      const rightPlatform = right * this.map.tileSize;
+
+      if (player.x + player.width > rightPlatform && player.oldX + player.width <= rightPlatform) {
+        player.xVelocity = 0;
+        player.x = player.oldX = rightPlatform - player.width;
+      }
+    }
+  }
+
 }
