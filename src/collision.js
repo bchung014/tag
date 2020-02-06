@@ -77,23 +77,36 @@ export default class Collision {
       const topRight = this.map.tileMap[top * this.map.cols + right];
 
       player.colliding = false;
-      // Check bottom platform collision
+
       if (bottomLeft || bottomRight) this.bottomCollision(player, bottom);
+      if (topLeft || topRight) this.topCollision(player, top);
       if (topRight) this.rightCollision(player, right);
       if (topLeft) this.leftCollision(player, left);
       
     });
   }
 
+  topCollision(player, top) {
+    if (player.yVelocity < 0) {
+      const topPlatform = (top + 1) * this.map.tileSize;
+
+      if (player.y < topPlatform && player.oldY >= topPlatform) {
+        player.jumping = 0;
+        player.yVelocity = 0;
+        player.y = player.oldY = topPlatform - 0.01;
+        player.colliding = true;
+      }
+    }
+  }
 
   bottomCollision(player, bottom) {
     if (player.yVelocity > 0) {
-      const topPlatform = bottom * this.map.tileSize;
+      const bottomPlatform = bottom * this.map.tileSize;
 
-      if (player.y + player.height > topPlatform && player.oldY + player.height <= topPlatform) {
+      if (player.y + player.height > bottomPlatform && player.oldY + player.height <= bottomPlatform) {
         player.jumping = 0;
         player.yVelocity = 0;
-        player.y = player.oldY = topPlatform - player.height - 0.01;
+        player.y = player.oldY = bottomPlatform - player.height - 0.01;
         player.colliding = true;
       }
     }
