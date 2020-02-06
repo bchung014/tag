@@ -70,23 +70,18 @@ export default class Collision {
       const right = Math.floor(this.getCollisionAngles(player, 'right') / this.map.tileSize);
       const top = Math.floor(this.getCollisionAngles(player, 'top') / this.map.tileSize);
       const bottom = Math.floor(this.getCollisionAngles(player, 'bottom') / this.map.tileSize);
-
-      
+    
       const bottomLeft = this.map.tileMap[bottom * this.map.cols + left];
       const bottomRight = this.map.tileMap[bottom * this.map.cols + right];
-      
+      const topLeft = this.map.tileMap[top * this.map.cols + left];
       const topRight = this.map.tileMap[top * this.map.cols + right];
 
-      // console.log(`bottomRight: ${bottomRight}`);
-      // console.log(`topRight: ${right}`);
-      
       player.colliding = false;
-      
       // Check bottom platform collision
       if (bottomLeft || bottomRight) this.bottomCollision(player, bottom);
       if (topRight) this.rightCollision(player, right);
+      if (topLeft) this.leftCollision(player, left);
       
-
     });
   }
 
@@ -108,9 +103,20 @@ export default class Collision {
     if (player.xVelocity > 0) {
       const rightPlatform = right * this.map.tileSize;
 
-      if (player.x + player.width > rightPlatform && player.oldX + player.width <= rightPlatform) {
+      if (player.x + player.width > rightPlatform) {
         player.xVelocity = 0;
         player.x = player.oldX = rightPlatform - player.width;
+      }
+    }
+  }
+
+  leftCollision(player, left) {
+    if (player.xVelocity < 0) {
+      const leftPlatform = (left + 1)  * this.map.tileSize;
+
+      if (player.x < leftPlatform) {
+        player.xVelocity = 0;
+        player.x = player.oldX = leftPlatform;
       }
     }
   }
