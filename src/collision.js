@@ -76,12 +76,15 @@ export default class Collision {
       const topLeft = this.map.tileMap[top * this.map.cols + left];
       const topRight = this.map.tileMap[top * this.map.cols + right];
 
+      const centerRight = this.map.tileMap[top * this.map.cols + right];
+      console.log(player.y);
+
       player.colliding = false;
 
       if (bottomLeft || bottomRight) this.bottomCollision(player, bottom);
       if (topLeft || topRight) this.topCollision(player, top);
-      if (topRight) this.rightCollision(player, right);
-      if (topLeft) this.leftCollision(player, left);
+      if (centerRight) this.rightCollision(player, right);
+      // if (topLeft) this.leftCollision(player, left);
       
     });
   }
@@ -114,6 +117,7 @@ export default class Collision {
 
   rightCollision(player, right) {
     if (player.xVelocity > 0) {
+      console.log('hitter');
       const rightPlatform = right * this.map.tileSize;
 
       if (player.x + player.width > rightPlatform) {
