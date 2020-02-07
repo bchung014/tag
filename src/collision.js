@@ -86,8 +86,8 @@ export default class Collision {
 
       if (bottomLeft || bottomRight) this.bottomCollision(player, bottom);
       if (topLeft || topRight) this.topCollision(player, top);
-      if (centerRight) this.rightCollision(player, right);
-      if (centerLeft) this.leftCollision(player, left);
+      // if (centerRight) this.rightCollision(player, right);
+      // if (centerLeft) this.leftCollision(player, left);
     });
   }
 
@@ -133,7 +133,7 @@ export default class Collision {
       const leftPlatform = (left + 1)  * this.map.tileSize;
 
       if (player.x < leftPlatform) {
-        player.xVelocity = 0;
+        player.xVelocity = -0.1;
         player.x = player.oldX = leftPlatform;
       }
     }
