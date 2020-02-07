@@ -59,6 +59,8 @@ export default class Collision {
         return object.y;
       case 'bottom':
         return object.y + object.height;
+      case 'center':
+        return object.y + (object.height / 2);
       default:
         break;
     }
@@ -70,22 +72,22 @@ export default class Collision {
       const right = Math.floor(this.getCollisionAngles(player, 'right') / this.map.tileSize);
       const top = Math.floor(this.getCollisionAngles(player, 'top') / this.map.tileSize);
       const bottom = Math.floor(this.getCollisionAngles(player, 'bottom') / this.map.tileSize);
-    
+      const center = Math.floor(this.getCollisionAngles(player, 'center') / this.map.tileSize);
+  
       const bottomLeft = this.map.tileMap[bottom * this.map.cols + left];
       const bottomRight = this.map.tileMap[bottom * this.map.cols + right];
       const topLeft = this.map.tileMap[top * this.map.cols + left];
       const topRight = this.map.tileMap[top * this.map.cols + right];
-
-      const centerRight = this.map.tileMap[top * this.map.cols + right];
-      console.log(player.y);
+      
+      const centerRight = this.map.tileMap[center * this.map.cols + right];
+      const centerLeft = this.map.tileMap[center * this.map.cols + left];
 
       player.colliding = false;
 
       if (bottomLeft || bottomRight) this.bottomCollision(player, bottom);
       if (topLeft || topRight) this.topCollision(player, top);
       if (centerRight) this.rightCollision(player, right);
-      // if (topLeft) this.leftCollision(player, left);
-      
+      if (centerLeft) this.leftCollision(player, left);
     });
   }
 
@@ -117,7 +119,6 @@ export default class Collision {
 
   rightCollision(player, right) {
     if (player.xVelocity > 0) {
-      console.log('hitter');
       const rightPlatform = right * this.map.tileSize;
 
       if (player.x + player.width > rightPlatform) {
