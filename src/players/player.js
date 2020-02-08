@@ -94,10 +94,17 @@ export default class Player {
     this.oldY = this.y;
     this.x += this.xVelocity;
     this.y += this.yVelocity;
+    
 
-    // Handle wrapping
+    // Handle wrapping horizontally
     if (this.x <= -this.width) this.x = this.ctx.canvas.width - 1;
     else if (this.x > this.ctx.canvas.width) this.x = -this.width;
+
+    // Handle wrapping vertically
+    if (this.y > this.ctx.canvas.height) { 
+      this.yVelocity = 0;
+      this.y = 0;
+    }
   }
 
   jump() {

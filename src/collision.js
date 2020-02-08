@@ -85,7 +85,7 @@ export default class Collision {
       player.colliding = false;
 
       if (bottomLeft || bottomRight) this.bottomCollision(player, bottom);
-      if (topLeft || topRight) this.topCollision(player, top);
+      // if (topLeft || topRight) this.topCollision(player, top);
       // if (centerRight) this.rightCollision(player, right);
       // if (centerLeft) this.leftCollision(player, left);
     });
