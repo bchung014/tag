@@ -53,20 +53,22 @@ export default class Game {
 
   isGameover() {
     return this.timer.gameover;
+  }
 
-    // const winner = this.getWinner();
+  gameoverScreen() {
+    const winner = this.getWinner();
 
-    // if (this.timer.gameover) {
-    //   this.ctx.clearRect(0, 0, 1400, 700);
-    //   this.ctx.font = "50px Arial";
-    //   this.ctx.fillStyle = "red";
-    //   this.ctx.fillText(`gameover congrats Player ${winner.playerNumber} everyone is bad but u`, 100, 200);
-    //   this.render();
-    // }
+    if (this.timer.gameover) {
+      this.ctx.clearRect(0, 0, 1400, 700);
+      this.ctx.font = "50px Arial";
+      this.ctx.fillStyle = "red";
+      this.ctx.fillText(`gameover congrats Player ${winner.playerNumber} everyone is bad but u`, 100, 200);
+      this.render();
+    }
   }
 
   render() {
-    // this.isGameover();
+    if (this.isGameover()) this.gameoverScreen();
 
     this.map.draw();
     this.timer.draw();
@@ -78,8 +80,8 @@ export default class Game {
 
     window.requestAnimationFrame(() => {
       // This line to break  the animation recursion when a game is restarted
-      if(this.controller['restart']) return;
-      
+      if(this.controller.restart) return;
+
       this.render();
     });
   }

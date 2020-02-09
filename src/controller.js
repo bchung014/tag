@@ -1,18 +1,18 @@
 const P1_KEYS = {
+  LEFT: 65,
+  RIGHT: 68,
+  UP: 87,
+  DOWN: 83,
+  DASH: 86
+};
+
+const P2_KEYS = {
   LEFT: 37,
   RIGHT: 39,
   UP: 38,
   DOWN: 40,
   DASH: 191,
   TAG: 190
-};
-
-const P2_KEYS = {
-  LEFT: 65,
-  RIGHT: 68,
-  UP: 87,
-  DOWN: 83,
-  DASH: 86
 };
 
 export default class Controller {
