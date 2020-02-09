@@ -1,4 +1,5 @@
-const GAME_TIME = 9999;
+const GAME_TIME = 30;
+const TIME_REDUCTION = 3;
 
 export default class Timer {
   constructor(ctx) {
@@ -6,10 +7,13 @@ export default class Timer {
     this.gameover = false;
     
     this.ctx = ctx;
+    this.numTags = 0;
+
+    this.currTimer = 0;
   }
 
   runTimer() {
-    setInterval(() => {
+    this.currTimer = setInterval(() => {
       if (this.time > 0) { 
         this.time -= 1;
       } else {
@@ -20,8 +24,10 @@ export default class Timer {
   }
 
   resetTimer() {
-    clearInterval();
-    this.time = GAME_TIME;
+    clearInterval(this.currTimer);
+    this.numTags++;
+    this.time = GAME_TIME - (this.numTags * TIME_REDUCTION);
+    this.runTimer();
   }
 
   draw() {
