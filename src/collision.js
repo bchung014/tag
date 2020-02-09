@@ -19,7 +19,7 @@ export default class Collision {
       if (!this.tagCooldown) {
         this.players.forEach(player => player.isTagger = !player.isTagger);
         this.changeTagger();
-        this.timer.resetTimer();
+        this.timer.decrementTimer();
 
         this.tagCooldown = true;
         setTimeout(() => this.tagCooldown = false, 2000);
@@ -138,5 +138,4 @@ export default class Collision {
       }
     }
   }
-
 }

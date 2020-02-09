@@ -1,7 +1,8 @@
 import "./styles/main.scss";
-import Game from './game';
+import Launcher from './launcher';
 
 window.addEventListener("DOMContentLoaded", () => {
-  const currGame = new Game();
-  currGame.initialize();
+  const gameLauncher = new Launcher();
+  gameLauncher.start();
+
 });
