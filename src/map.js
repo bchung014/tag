@@ -105,7 +105,7 @@ export default class Map {
     this.redraw(...SHINE_CYCLE[Math.floor(this.frameCount.shine / 6)], tile);
     this.frameCount.delay++;
 
-    if (this.frameCount.delay == 10) {
+    if (this.frameCount.delay == 20) {
       this.frameCount.shine++;
       this.frameCount.delay = 0;
     }
