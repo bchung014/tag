@@ -1,7 +1,7 @@
-import Controller from './controller';
-import Map from './map';
-import Collision from './collision';
-import Timer from './timer';
+import Controller from './controller/controller';
+import Map from './map/map';
+import Collision from './collision/collision';
+import Timer from './timer/timer';
 import Runner from './players/runner';
 import Tagger from './players/tagger';
 

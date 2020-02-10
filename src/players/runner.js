@@ -1,4 +1,5 @@
 import Player from './player';
+import { imageLoader } from '../image_loader/image_loader';
 
 // Idle Sprites
 const IDLE_CYCLE = [
@@ -32,7 +33,7 @@ export default class Runner extends Player {
   constructor(...args) {
     super(...args);
 
-    this.image = this.getImage('./assets/shrek.png');
+    this.image = imageLoader('./assets/shrek.png');
 
     // Set original hitbox to idle frame 1
     this.width = 32;

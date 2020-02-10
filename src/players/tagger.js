@@ -1,4 +1,5 @@
 import Player from './player';
+import { imageLoader } from '../image_loader/image_loader';
 
 const IDLE_CYCLE = [
   [1, 1, 64, 50],
@@ -30,8 +31,8 @@ export default class Tagger extends Player {
   constructor(...args) {
     super(...args);
 
-    this.image = this.getImage('./assets/handsprite.png');
-    this.itSprite = this.getImage('./assets/letter.png');
+    this.image = imageLoader('./assets/handsprite.png');
+    this.itSprite = imageLoader('./assets/letter.png');
 
     // Set original hitbox to idle frame 1
     this.width = 54;

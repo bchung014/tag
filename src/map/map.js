@@ -1,3 +1,5 @@
+import { imageLoader } from '../image_loader/image_loader';
+
 const SHINE_CYCLE = [
   [0, 17, 16, 16],
   [17, 17, 16, 16],
@@ -88,13 +90,7 @@ export default class Map {
       delay: 0
     };
 
-    this.image = this.getImage('./assets/tile_map.png');
-  }
-
-  getImage(imagePath) {
-    const image = new Image();
-    image.src = imagePath;
-    return image;
+    this.image = imageLoader('./assets/tile_map.png');
   }
 
   redraw(x1, y1, x2, y2, tile) {

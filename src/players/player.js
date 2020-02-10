@@ -55,14 +55,6 @@ export default class Player {
     this.controller = controller;
   }
 
-  getImage(imagePath) {
-    const image = new Image();
-    image.src = imagePath;
-    return image;
-  }
-
-
-
   //***********************************************************************
   // 
   //  Movement options

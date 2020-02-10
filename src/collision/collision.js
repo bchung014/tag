@@ -1,5 +1,5 @@
-import Runner from './players/runner';
-import Tagger from './players/tagger';
+import Runner from '../players/runner';
+import Tagger from '../players/tagger';
 
 export default class Collision {
   constructor(map, players, timer) {
