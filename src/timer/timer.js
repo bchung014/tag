@@ -1,5 +1,11 @@
-const GAME_TIME = 5;
+const GAME_TIME = 20;
 const TIME_REDUCTION = 3;
+
+import { imageLoader } from '../image_loader/image_loader';
+
+const NUMBERS = [
+  [2, 2, 14, 16], // 0
+];
 
 export default class Timer {
   constructor(ctx) {
@@ -10,6 +16,8 @@ export default class Timer {
     this.numTags = 0;
 
     this.currTimer = 0;
+
+    this.numbersSprite = imageLoader('./assets/numbers.png');
   }
 
   runTimer() {
@@ -35,8 +43,15 @@ export default class Timer {
   }
 
   draw() {
+    // this.ctx.drawImage(this.numbersSprite, 2, 2, 14, 16, 500, 50, 14 * 3, 16 * 3);
+
     this.ctx.font = "50px Arial";
-    this.ctx.fillStyle = "green";
-    this.ctx.fillText(this.time, 680, 50);
+    this.ctx.fillStyle = "purple";
+
+    if (this.time > 0) {
+      this.ctx.fillText(this.time, 680, 50);
+    } else {
+      this.ctx.fillText('GG', 660, 50);
+    }
   }
 }

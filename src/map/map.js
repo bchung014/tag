@@ -22,8 +22,20 @@ const HILL = [
   [170, 119, 16, 16], // hill body right
 ];
 
+const CLOUD = [
+  [2, 2, 16, 16], // top left corner
+  [21, 2, 16, 16], // top center
+  [40, 2, 16, 16], // top right corner
+  [2, 21, 16, 16], // bottom left corner
+  [21, 21, 16, 16], // bottom center
+  [40, 21, 16, 16],
+];
+
 const TREE = [
-  [119, 0, 16, 16]
+  [2, 40, 16, 16], // left tree head
+  [21, 40, 16, 16], // center tree head
+  [40, 40, 16, 16], // right tree head
+  [21, 59, 16, 16], // tree body
 ];
 
 export default class Map {
@@ -65,20 +77,20 @@ export default class Map {
     ];
     
     this.extrasMap = [
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4,
+      2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0,
+      5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8,
+      10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 9, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ];
 
     this.tileSize = 50;
@@ -91,14 +103,19 @@ export default class Map {
     };
 
     this.image = imageLoader('./assets/tile_map.png');
+    this.extras = imageLoader('./assets/extras.png');
+    this.sky = imageLoader('./assets/sky.jpg');
   }
 
-  redraw(x1, y1, x2, y2, tile) {
-    this.ctx.drawImage(this.image, x1, y1, x2, y2, (tile % this.cols) * this.tileSize, Math.floor(tile / this.cols) * this.tileSize, this.tileSize, this.tileSize);
+  redraw(x1, y1, x2, y2, tile, img) {
+    this.ctx.drawImage(img, x1, y1, x2, y2, (tile % this.cols) * this.tileSize, Math.floor(tile / this.cols) * this.tileSize,
+    this.tileSize + 2, this.tileSize + 2);
+
+    // Added +2 to tileSize to rectify the border issue
   }
 
   shine(tile) {
-    this.redraw(...SHINE_CYCLE[Math.floor(this.frameCount.shine / 6)], tile);
+    this.redraw(...SHINE_CYCLE[Math.floor(this.frameCount.shine / 6)], tile, this.image);
     this.frameCount.delay++;
 
     if (this.frameCount.delay == 20) {
@@ -110,52 +127,80 @@ export default class Map {
   }
 
   draw() {
+    this.ctx.drawImage(this.sky, 0, 0);
+
     for (let tile = 0; tile < this.assetMap.length; tile++) {
       let currTile = this.assetMap[tile];
         
       switch(currTile) {
         case 1:
-          // this.shine(tile);
-          this.redraw(...GROUND[0], tile);
+          this.redraw(...GROUND[0], tile, this.image);
           break;
         case 2:
-          this.redraw(...HILL[0], tile);
+          this.redraw(...HILL[0], tile, this.image);
           break;
         case 3:
-          this.redraw(...HILL[1], tile);
+          this.redraw(...HILL[1], tile, this.image);
           break;
         case 4:
-          this.redraw(...HILL[2], tile);
+          this.redraw(...HILL[2], tile, this.image);
           break;
         case 5: 
-          this.redraw(...HILL[3], tile);
+          this.redraw(...HILL[3], tile, this.image);
           break;
         case 6:
-          this.redraw(...HILL[4], tile);
+          this.redraw(...HILL[4], tile, this.image);
           break;          
         case 7:
-          this.redraw(...HILL[5], tile);
+          this.redraw(...HILL[5], tile, this.image);
           break;
         case 8:
           this.shine(tile);
           break;
         default:
-          this.ctx.fillStyle = currTile === 0 ? "pink" : "black";
-          this.ctx.fillRect((tile % this.cols) * this.tileSize, Math.floor(tile / this.cols) * this.tileSize, this.tileSize, this.tileSize);
+          // this.ctx.fillStyle = currTile === 0 ? "pink" : "black";
+          // this.ctx.fillRect((tile % this.cols) * this.tileSize, Math.floor(tile / this.cols) * this.tileSize, this.tileSize, this.tileSize);
           break;
       }
     }
 
-    // for (let tile = 0; tile < this.extrasMap.length; tile++) {
-    //   let currTile = this.extrasMap[tile];
+    for (let tile = 0; tile < this.extrasMap.length; tile++) {
+      let currTile = this.extrasMap[tile];
 
-    //   switch(currTile) {
-    //     case 1:
-    //       this.redraw(...TREE[0], tile);
-    //       break;
-    //   }
+      switch(currTile) {
+        case 1:
+          this.redraw(...CLOUD[0], tile, this.extras);
+          break;
+        case 2:
+          this.redraw(...CLOUD[1], tile, this.extras);
+          break;
+        case 3:
+          this.redraw(...CLOUD[2], tile, this.extras);
+          break;
+        case 4:
+          this.redraw(...CLOUD[3], tile, this.extras);
+          break;
+        case 5:
+          this.redraw(...CLOUD[4], tile, this.extras);
+          break;
+        case 6:
+          this.redraw(...CLOUD[5], tile, this.extras);
+          break;
+        case 7:
+          this.redraw(...TREE[0], tile, this.extras);
+          break;
+        case 8:
+          this.redraw(...TREE[1], tile, this.extras);
+          break;
+        case 9:
+          this.redraw(...TREE[2], tile, this.extras);
+          break;
+        case 10:
+          this.redraw(...TREE[3], tile, this.extras);
+          break;
+      }
 
-    // }
+    }
 
 
   }

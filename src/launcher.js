@@ -44,6 +44,7 @@ export default class Launcher {
     this.itSprite = imageLoader('./assets/letter.png');
     this.grabSprite = imageLoader('./assets/grab.png');
     this.startMessageSprite = imageLoader('./assets/start_message.png');
+    this.sky = imageLoader('./assets/sky.jpg');
 
     this.gameCommenced = false;
 
@@ -74,7 +75,6 @@ export default class Launcher {
   start() {
     window.requestAnimationFrame(() => {
       if (this.gameCommenced) {
-        console.log('here');
         return;
       }
 
@@ -85,7 +85,7 @@ export default class Launcher {
       // this.ctx.fillStyle = "red";
       // this.ctx.fillText(`Press r to begin`, 550, 630);
 
-      // this.ctx.drawImage(this.startMessageSprite, 0, 0, 221, 18, 145, 500, 221 * 5, 18 * 5);
+      this.ctx.drawImage(this.sky, 0, 0);
 
       this.it();
       this.grab();
@@ -107,7 +107,7 @@ export default class Launcher {
   }
 
   grab() {
-    this.drawer(...GRAB_CYCLE[Math.floor(this.frameCount.grab / 1)], 560, 200, 4, this.grabSprite);
+    this.drawer(...GRAB_CYCLE[Math.floor(this.frameCount.grab / 1)], 535, 225, 4, this.grabSprite);
     this.frameCount.grabDelay++;
 
     if (this.frameCount.grabDelay == 10) {
@@ -119,7 +119,7 @@ export default class Launcher {
   }
 
   startMessage() {
-    this.drawer(...START_MESSAGE_CYCLE[Math.floor(this.frameCount.startMessage / 1)], 340, 510, 5, this.startMessageSprite);
+    this.drawer(...START_MESSAGE_CYCLE[Math.floor(this.frameCount.startMessage / 1)], 340, 540, 5, this.startMessageSprite);
 
     this.frameCount.startMessageDelay++;
 
