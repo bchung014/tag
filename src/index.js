@@ -4,5 +4,4 @@ import Launcher from './launcher';
 window.addEventListener("DOMContentLoaded", () => {
   const gameLauncher = new Launcher();
   gameLauncher.start();
-
 });
