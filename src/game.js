@@ -46,10 +46,16 @@ export default class Game {
   gameoverScreen(winner) {
     if (this.timer.gameover) {
       this.ctx.clearRect(0, 0, 1400, 700);
-      this.ctx.font = "50px Arial";
+      
+      this.ctx.fillStyle = "black";
+      this.ctx.fillRect(0, 0, 1400, 700);
+      
+        this.ctx.font = "50px Arial";
       this.ctx.fillStyle = "red";
-      this.ctx.fillText(`gameover congrats Player ${winner.playerNumber} everyone is bad but u`, 100, 200);
-      this.render();
+      this.ctx.fillText(`Gameover! Congrats Player ${winner.playerNumber}.`, 400, 300);
+      this.ctx.fillText(`You cooked this fool.`, 460, 350);
+      this.ctx.fillText(`Press 'R' to run it back.`, 450, 400);
+      // this.render();
     }
   }
 

@@ -23,13 +23,18 @@ body {
   margin-bottom: 2vh;
 
   font-size: 45px;
-  -webkit-text-stroke: 1px black;
+  color: white;
+  text-shadow: -4px 0 black, 0 4px black, 4px 0 black, 0 -4px black;
+  background: maroon;
+  box-shadow: 3px 3px black;
 
-  -webkit-animation: color-change 1s infinite;
-  -moz-animation: color-change 1s infinite;
-  -o-animation: color-change 1s infinite;
-  -ms-animation: color-change 1s infinite;
-  animation: color-change 1s infinite;
+  // -webkit-text-stroke: 1px black;
+
+  // -webkit-animation: color-change 1s infinite;
+  // -moz-animation: color-change 1s infinite;
+  // -o-animation: color-change 1s infinite;
+  // -ms-animation: color-change 1s infinite;
+  // animation: color-change 1s infinite;
 }
 
 @-webkit-keyframes color-change {
@@ -60,6 +65,35 @@ body {
 }
 
 
+.game-panel {
+  display: flex;
+}
+
+.game-panel section {
+  padding: 0 1rem;
+  padding-top: 10vw;
+}
+
+.game-panel section h1 {
+  background: maroon;
+  color: white;
+  padding: 10px;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.game-panel section p {
+  padding: 6px;
+  padding-top: 10px;
+  background: white;
+}
+
+.game-panel section:first-child {
+  text-align: right;
+}
+
+.game-panel section:second-child {
+  text-align: left;
+}
 
 // Holds the game canvas
 #gameWindow {
