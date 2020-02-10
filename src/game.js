@@ -39,25 +39,11 @@ export default class Game {
     this.render();
   }
 
-  getWinner() {
-    let winner;
-
-    this.players.forEach(player => { 
-      if (!player.isTagger) {
-        winner = player;
-      }
-    });
-
-    return winner;
-  }
-
   isGameover() {
     return this.timer.gameover;
   }
 
-  gameoverScreen() {
-    const winner = this.getWinner();
-
+  gameoverScreen(winner) {
     if (this.timer.gameover) {
       this.ctx.clearRect(0, 0, 1400, 700);
       this.ctx.font = "50px Arial";
@@ -68,21 +54,29 @@ export default class Game {
   }
 
   render() {
-    if (this.isGameover()) this.gameoverScreen();
 
-    this.map.draw();
-    this.timer.draw();
-    this.players.forEach(player => player.draw());
-
-    this.collision.checkMapCollisions();
-    this.collision.tagOccurred();
 
 
     window.requestAnimationFrame(() => {
       // This line to break  the animation recursion when a game is restarted
       if(this.controller.restart) return;
 
-      this.render();
+      if (this.isGameover()) {
+        this.players.forEach(player => {
+          if (!player.isTagger) this.gameoverScreen(player)
+        });
+
+        return;
+      } else {
+        this.map.draw();
+        this.timer.draw();
+        this.players.forEach(player => player.draw());
+
+        this.collision.checkMapCollisions();
+        this.collision.tagOccurred();
+
+        this.render();
+      }
     });
   }
 
