@@ -16,62 +16,124 @@ const IT_CYCLE = [
   [110, 96, 33, 44]
 ];
 
+export const GRAB_CYCLE = [
+  [2, 2, 72, 67],
+  [77, 2, 72, 67],
+  [152, 2, 72, 67],
+  [227, 2, 72, 67],
+  [302, 2, 72, 67],
+  [377, 2, 72, 67],
+  [152, 2, 72, 67],
+];
+
+export const START_MESSAGE_CYCLE = [
+  [2, 2, 143, 18],
+  [2, 23, 143, 18],
+  [2, 44, 143, 18],
+  [2, 65, 143, 18],
+  [2, 86, 143, 18],
+  [2, 107, 143, 18],
+];
+
+
 export default class Launcher {
   constructor() {
     this.currGame = new Game();
     this.ctx = document.getElementById('gameWindow').getContext('2d');
 
     this.itSprite = imageLoader('./assets/letter.png');
+    this.grabSprite = imageLoader('./assets/grab.png');
+    this.startMessageSprite = imageLoader('./assets/start_message.png');
+
+    this.gameCommenced = false;
 
     this.frameCount = {
       it: 0,
-      delay: 0,
-    };
-  }
+      grab: 0,
+      startMessage: 0,
 
-  start() {
+      itDelay: 0,
+      grabDelay: 0,
+      startMessageDelay: 0
+    };
+
     window.addEventListener("keydown", (event) => {
       switch (event.key) {
         case 'r':
           this.currGame.timer.resetTimer();
           this.currGame = new Game();
-          this.currGame.commenced = true;
+          this.gameCommenced = true;
           this.currGame.initialize();
           break;
         default:
           return;
       }
     });
-    // window.requestAnimationFrame(() => {
-    //   this.ctx.fillStyle = "yellow";
-    //   this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+  }
 
-    //   // this.ctx.font = "50px Arial";
-    //   // this.ctx.fillStyle = "red";
-    //   // this.ctx.fillText(`Press r to begin`, 500, 350);
+  start() {
+    window.requestAnimationFrame(() => {
+      if (this.gameCommenced) {
+        console.log('here');
+        return;
+      }
 
-    //   this.it();
+      this.ctx.fillStyle = "pink";
+      this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
-    //   this.start();
-    // });
+      // this.ctx.font = "50px Arial";
+      // this.ctx.fillStyle = "red";
+      // this.ctx.fillText(`Press r to begin`, 550, 630);
+
+      // this.ctx.drawImage(this.startMessageSprite, 0, 0, 221, 18, 145, 500, 221 * 5, 18 * 5);
+
+      this.it();
+      this.grab();
+      this.startMessage();
+      this.start();
+    });
   }
 
   it() {
-    this.itDrawer(...IT_CYCLE[Math.floor(this.frameCount.it / 1)]);
-    this.frameCount.delay++;
+    this.drawer(...IT_CYCLE[Math.floor(this.frameCount.it / 1)], 635, 60, 4, this.itSprite);
+    this.frameCount.itDelay++;
 
-    if (this.frameCount.delay == 8) {
+    if (this.frameCount.itDelay == 8) {
       this.frameCount.it++;
-      this.frameCount.delay = 0;
+      this.frameCount.itDelay = 0;
     }
 
     if (this.frameCount.it === 12) this.frameCount.it = 0;
   }
 
-  itDrawer(x1, y1, x2, y2) {
-    this.ctx.drawImage(this.itSprite, x1, y1, x2, y2, 600, 200, x2 * 4, y2 * 4);
+  grab() {
+    this.drawer(...GRAB_CYCLE[Math.floor(this.frameCount.grab / 1)], 560, 200, 4, this.grabSprite);
+    this.frameCount.grabDelay++;
+
+    if (this.frameCount.grabDelay == 10) {
+      this.frameCount.grab++;
+      this.frameCount.grabDelay = 0;
+    }
+
+    if (this.frameCount.grab === 7) this.frameCount.grab = 0;
+  }
+
+  startMessage() {
+    this.drawer(...START_MESSAGE_CYCLE[Math.floor(this.frameCount.startMessage / 1)], 340, 510, 5, this.startMessageSprite);
+
+    this.frameCount.startMessageDelay++;
+
+    if (this.frameCount.startMessageDelay == 8) {
+      this.frameCount.startMessage++;
+      this.frameCount.startMessageDelay = 0;
+    }
+
+    if (this.frameCount.startMessage === 6) this.frameCount.startMessage = 0;
+
   }
 
 
-
+  drawer(x1, y1, x2, y2, locX, locY, scale, img) {
+    this.ctx.drawImage(img, x1, y1, x2, y2, locX, locY, x2 * scale, y2 * scale);
+  }
 }

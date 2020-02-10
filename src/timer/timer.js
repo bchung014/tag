@@ -1,4 +1,4 @@
-const GAME_TIME = 3;
+const GAME_TIME = 5;
 const TIME_REDUCTION = 3;
 
 export default class Timer {
